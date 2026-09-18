@@ -1,0 +1,7 @@
+assets/official/*.html
+assets/official/*.json
+assets/official/inspect-*
+assets/official/contact-sheet.jpg
+node_modules/
+__pycache__/
+tools/publish_pages.py
