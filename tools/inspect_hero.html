@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nova bottle label inspection</title>
+<style>body{margin:0;background:#d9ddd1;color:#24372d;font:15px Arial}header{padding:12px;display:flex;gap:8px;flex-wrap:wrap}button{padding:9px;border:1px solid #697566;border-radius:4px;background:#faf9ee;cursor:pointer}#stage{height:calc(100vh - 125px);min-height:320px}p{margin:8px 12px}canvas{display:block;width:100%;height:100%}</style>
+<header><button data-product="digestive">Digestive</button><button data-product="immunity">Immunity</button><button data-angle="0">Front</button><button data-angle="-120">Rear directions</button><button data-angle="120">Nutrition</button><button data-angle="-70">Side join</button></header>
+<p id="status">Loading current built textures…</p><div id="stage"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// Read-only local visual QA surface: same solid LatheGeometry and texture as
+// the storefront, with fixed-angle controls so label joins can be inspected.
+(async()=>{
+ const text=await(await fetch('../index.html')).text();
+ const data=JSON.parse(new DOMParser().parseFromString(text,'text/html').querySelector('#nova-data').textContent);
+ const T=THREE,stage=document.querySelector('#stage'),scene=new T.Scene(),camera=new T.PerspectiveCamera(32,1,.1,100);
+ const renderer=new T.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputEncoding=T.sRGBEncoding;stage.append(renderer.domElement);camera.position.z=13;
+ const models={};let key='digestive',angle=0;
+ for(const name of ['digestive','immunity']){
+  const spec=data.heroModels[name],texture=await new T.TextureLoader().loadAsync(data.assets[spec.texture]);texture.encoding=T.sRGBEncoding;texture.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8);
+  const mesh=new T.Mesh(new T.LatheGeometry(spec.profile.map(([r,y])=>new T.Vector2(r,y)),160,-Math.PI,Math.PI*2),new T.MeshBasicMaterial({map:texture,toneMapped:false}));scene.add(mesh);models[name]=mesh;
+ }
+ function render(){
+  renderer.setSize(stage.clientWidth,stage.clientHeight);camera.aspect=stage.clientWidth/stage.clientHeight;camera.updateProjectionMatrix();
+  for(const [name,mesh] of Object.entries(models)){mesh.visible=name===key;mesh.rotation.y=angle*Math.PI/180;}
+  document.querySelector('#status').textContent=`${key} · ${angle}° · current 4096px label texture`;
+  renderer.render(scene,camera);
+ }
+ document.querySelectorAll('[data-product]').forEach(b=>b.onclick=()=>{key=b.dataset.product;render()});
+ document.querySelectorAll('[data-angle]').forEach(b=>b.onclick=()=>{angle=Number(b.dataset.angle);render()});
+ addEventListener('resize',render);render();
+})().catch(e=>document.querySelector('#status').textContent=e.message);
+</script></html>

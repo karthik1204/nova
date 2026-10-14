@@ -23,6 +23,8 @@ GitHub Pages: main branch, repository root. The .nojekyll file disables Jekyll. 
 
 Editable markup, styles and behavior are in site.template.html. tools/assemble_site.py combines that template with the local official-site content audit and prepared WebP assets. The delivered index.html needs no build step. The scraped audit files are deliberately excluded from publication.
 
+The rotating hero uses the nine October 13 photographs in `assets/hero-oct13/`. Run `python tools/prepare_hero_models.py` followed by `python tools/assemble_site.py` to rebuild them (Pillow and NumPy required). Bottle surfaces combine front, rear and nutrition-label photographs on solid geometry; joins between the three views are approximate. The pouch uses its supplied front, back and side images. These assets are isolated from the product galleries, and the original transition timeline remains unchanged.
+
 ## Verification
 
-Run node tools/verify_site.cjs for static route, asset, syntax, and application rendering checks. These checks are not a substitute for WebGL and mobile visual verification.
+Run `node tools/test_product_gallery.cjs` and `node tools/test_hero_models.cjs` for gallery, syntax, hero source-image, geometry and transition regression checks. These checks are not a substitute for WebGL and mobile visual verification.

@@ -23,7 +23,13 @@ for key,slug,photo,color,accent,tag,short,nums in [
 ]:
     item=json.loads((SRC/('shop__p__'+slug+'.json')).read_text())['item']
     variants=sorted(item['variants'],key=lambda v:v['price'])
-    products.append({'key':key,'name':item['title'],'short':short,'tag':tag,'description':clean(re.sub('<[^>]+>','',item['excerpt'])),'url':'https://www.novahealthsynergy.com'+item['fullUrl'],'photo':photo,'cutout':photo+'-cutout','wrap':photo+'-wrap' if key!='broth' else 'pouch-front','color':color,'accent':accent,'variants':[{'size':v.get('attributes',{}).get('Size','4 oz / 113 g').replace('.',''),'price':v['price']/100,'id':v['id']} for v in variants],'ingredients':ingredients('shop__p__'+slug,*nums)})
+    hero_views={
+        'digestive':['hero-digestive-front','hero-digestive-angle'],
+        'immunity':['hero-immunity-front','hero-immunity-angle'],
+        'broth':['hero-broth-front','hero-broth-right','hero-broth-left'],
+    }[key]
+    corrected_wrap={'digestive':'15-wrap-corrected','immunity':'16-wrap-corrected','broth':'pouch-front-corrected'}[key]
+    products.append({'key':key,'name':item['title'],'short':short,'tag':tag,'description':clean(re.sub('<[^>]+>','',item['excerpt'])),'url':'https://www.novahealthsynergy.com'+item['fullUrl'],'photo':photo,'cutout':photo+'-cutout','wrap':corrected_wrap,'heroViews':hero_views,'color':color,'accent':accent,'variants':[{'size':v.get('attributes',{}).get('Size','4 oz / 113 g').replace('.',''),'price':v['price']/100,'id':v['id']} for v in variants],'ingredients':ingredients('shop__p__'+slug,*nums)})
 about=page('about')['text']; begin=about.index('Necia was being prepared for this her whole life.'); end=about.index('Shop',begin)
 story=[clean(s) for s in about[begin+1:end]]
 assets={}
@@ -35,7 +41,8 @@ for i in range(81):
     y=min(pouch.height-1,max(0,round(i/80*(pouch.height-1))))
     edges=[x for x in range(pouch.width) if pouch.getpixel((x,y))[3]>128]
     contour.append([edges[0]/pouch.width,edges[-1]/pouch.width] if edges else ([.1,.9] if not contour else contour[-1]))
-data={'products':products,'story':story,'assets':assets,'pouchContour':contour}
+hero_models=json.loads((ROOT/'assets'/'prepared'/'hero-models.json').read_text(encoding='utf8'))
+data={'products':products,'story':story,'assets':assets,'pouchContour':contour,'heroModels':hero_models}
 template=(ROOT/'site.template.html').read_text(encoding='utf8')
 output=template.replace('__NOVA_CONTENT__',json.dumps(data,ensure_ascii=False).replace('</','<\\/'))
 (ROOT/'index.html').write_text(output,encoding='utf8')
