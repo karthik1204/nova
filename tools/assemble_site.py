@@ -33,6 +33,8 @@ for key,slug,photo,color,accent,tag,short,nums in [
 about=page('about')['text']; begin=about.index('Necia was being prepared for this her whole life.'); end=about.index('Shop',begin)
 story=[clean(s) for s in about[begin+1:end]]
 assets={}
+logo=ROOT/'assets'/'branding'/'nova-emblem.png'
+assets['nova-emblem']='data:image/png;base64,'+base64.b64encode(logo.read_bytes()).decode()
 for file in (ROOT/'assets'/'prepared').glob('*.webp'):
     assets[file.stem]='data:image/webp;base64,'+base64.b64encode(file.read_bytes()).decode()
 pouch=Image.open(ROOT/'assets'/'prepared'/'pouch-front.webp').convert('RGBA')
@@ -42,7 +44,25 @@ for i in range(81):
     edges=[x for x in range(pouch.width) if pouch.getpixel((x,y))[3]>128]
     contour.append([edges[0]/pouch.width,edges[-1]/pouch.width] if edges else ([.1,.9] if not contour else contour[-1]))
 hero_models=json.loads((ROOT/'assets'/'prepared'/'hero-models.json').read_text(encoding='utf8'))
-data={'products':products,'story':story,'assets':assets,'pouchContour':contour,'heroModels':hero_models}
+hero_photos={}
+for key in ('digestive','immunity','broth'):
+    views=('front','side','back') if key=='broth' else ('front','back','nutrition')
+    hero_photos[key]=[]
+    for view in views:
+        file=ROOT/'assets'/'hero-oct14'/f'{key}-{view}.png'
+        if key=='immunity' and view=='front':
+            file=ROOT/'assets'/'hero-masters'/'immunity-front.png'
+        image=Image.open(file)
+        asset_id=f'hero-{key}-oct14-{view}'
+        if key=='immunity' and view=='front':
+            asset_id='hero-immunity-master-front'
+        # Embed the supplied bytes unchanged. Bounds only center and uniformly
+        # size the full PNG; no cropping, resampling or label reconstruction.
+        bounds=image.getchannel('A').getbbox()
+        assets[asset_id]='data:image/png;base64,'+base64.b64encode(file.read_bytes()).decode()
+        hero_photos[key].append({'asset':asset_id,'width':image.width,'height':image.height,'bounds':bounds})
+    hero_models[key]['source']=hero_photos[key][0]['asset']
+data={'products':products,'story':story,'assets':assets,'pouchContour':contour,'heroModels':hero_models,'heroPhotos':hero_photos}
 template=(ROOT/'site.template.html').read_text(encoding='utf8')
 output=template.replace('__NOVA_CONTENT__',json.dumps(data,ensure_ascii=False).replace('</','<\\/'))
 (ROOT/'index.html').write_text(output,encoding='utf8')

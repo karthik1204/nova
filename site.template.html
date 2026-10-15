@@ -57,13 +57,22 @@ dialog{max-width:min(800px,90vw);max-height:90svh;padding:0;border:0;border-radi
 :root[data-theme=dark] .process .section-heading h2 em{color:#bac88f}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .process .section-heading .eyebrow{color:var(--ink)}:root:not([data-theme=light]) .process .section-heading h2 em{color:#bac88f}}
 @media(max-width:760px){.process .section-heading{flex-direction:column}.process .section-heading>p{max-width:100%}}
+/* Intact product PNG layers. No width/height tween, perspective, mask or crop. */
+.product-image-stage{position:absolute;pointer-events:none;overflow:visible}
+.product-image-layer,.product-photo-view{position:absolute;inset:0;width:100%;height:100%;transform-origin:center center;overflow:visible;transition:none}
+.product-image-layer{will-change:transform}
+.product-image-layer[hidden],.product-photo-view[hidden]{display:none}
+.product-image{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center center;transform-origin:center center;transition:none;border-radius:0}
+.product-stage-shadow{position:absolute;pointer-events:none;background:radial-gradient(ellipse,rgba(38,29,16,.18),rgba(38,29,16,.07) 40%,transparent 70%)}
+/* Contain the supplied emblem in the existing brand slot without distortion. */
+.brand-emblem{display:block;object-fit:contain;flex-shrink:0}.footer .brand{align-items:center}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="announcement-bar" aria-label="Nova newsletter"><span class="announcement-message"><i class="announcement-dot" aria-hidden="true"></i> A little more Synergy<span class="announcement-extra"> — new remedies, courses & updates</span></span><a href="#/newsletter">Newsletter</a></aside>
 <header class="header" id="header">
- <a class="brand" href="#/" aria-label="Nova Health Synergy home"><svg class="brand-symbol" viewBox="0 0 42 48" aria-hidden="true"><path d="M21 3v42M21 10C12 3 5 6 7 17c1 7 8 9 14 13M21 10c9-7 16-4 14 7-1 7-8 9-14 13M21 21C10 12 3 23 9 33c3 6 9 9 12 12M21 21c11-9 18 2 12 12-3 6-9 9-12 12"/></svg><span class="brand-name">nova<small>health synergy</small></span></a>
+ <a class="brand" href="#/" aria-label="Nova Health Synergy home"><img class="brand-symbol brand-emblem" data-image="nova-emblem" width="44" height="44" alt="" aria-hidden="true"><span class="brand-name">nova<small>health synergy</small></span></a>
  <nav class="navigation" aria-label="Main navigation"><a href="#/shop">The apothecary</a><a href="#/story">Our story</a><a href="#/ingredients">Our ingredients</a><a href="#/journal">Journal</a><a href="#/contact">Contact</a></nav>
  <div class="header-actions"><button class="theme-toggle" id="theme-toggle" aria-label="Switch color theme" title="Switch color theme">◐</button><a class="cart-link" href="#/bag" aria-label="Open your bag"><svg viewBox="0 0 24 27" aria-hidden="true"><path d="M4 8h16l1 16H3L4 8ZM8 9V6a4 4 0 0 1 8 0v3"/></svg><span>Your bag</span></a><button class="menu-button" id="menu-open" aria-controls="mobile-menu" aria-expanded="false">Menu</button></div>
 </header>
@@ -100,7 +109,7 @@ dialog{max-width:min(800px,90vw);max-height:90svh;padding:0;border:0;border-radi
  <div id="page-view" hidden></div>
 </main>
 <section class="newsletter" id="newsletter"><div><p class="eyebrow">Stay in the know</p><h2>A little more goodness<br>in your <em>inbox.</em></h2></div><div><p>New product launches, courses and other updates.</p><a class="pill" href="#/newsletter">Newsletter updates</a></div><span class="newsletter-star" aria-hidden="true">✳</span></section>
-<footer class="footer"><div class="footer-top"><div class="footer-brand"><a class="brand" href="#/"><span class="brand-name">nova<small>health synergy</small></span></a><p>The infusion of science and nature.<br>Handcrafted in North Carolina.</p></div><div><h3>Explore Nova</h3><nav aria-label="Footer pages"><a href="#/shop">The apothecary</a><a href="#/story">Our story</a><a href="#/ingredients">Ingredients</a><a href="#/journal">Journal</a></nav></div><div><h3>Let’s connect</h3><nav aria-label="Connect"><a href="#/contact">Contact Us</a><a href="https://www.facebook.com/NovaHealthSynergy/" target="_blank" rel="noopener">Facebook ↗</a><a href="#/newsletter">Newsletter</a><a href="#/bag">Your bag</a></nav></div><img class="footer-photo" data-image="12" alt="Traditional woven baskets and earthenware" loading="lazy"></div><div class="footer-end"><span>© <span id="year"></span> Nova Health Synergy</span><span>Handcrafted in small batches with love, respect and diligence.</span></div><p class="disclaimer">These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.</p></footer>
+<footer class="footer"><div class="footer-top"><div class="footer-brand"><a class="brand" href="#/" aria-label="Nova Health Synergy home"><img class="brand-symbol brand-emblem" data-image="nova-emblem" width="44" height="44" alt="" aria-hidden="true"><span class="brand-name">nova<small>health synergy</small></span></a><p>The infusion of science and nature.<br>Handcrafted in North Carolina.</p></div><div><h3>Explore Nova</h3><nav aria-label="Footer pages"><a href="#/shop">The apothecary</a><a href="#/story">Our story</a><a href="#/ingredients">Ingredients</a><a href="#/journal">Journal</a></nav></div><div><h3>Let’s connect</h3><nav aria-label="Connect"><a href="#/contact">Contact Us</a><a href="https://www.facebook.com/NovaHealthSynergy/" target="_blank" rel="noopener">Facebook ↗</a><a href="#/newsletter">Newsletter</a><a href="#/bag">Your bag</a></nav></div><img class="footer-photo" data-image="12" alt="Traditional woven baskets and earthenware" loading="lazy"></div><div class="footer-end"><span>© <span id="year"></span> Nova Health Synergy</span><span>Handcrafted in small batches with love, respect and diligence.</span></div><p class="disclaimer">These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.</p></footer>
 <dialog id="mobile-menu" class="menu-dialog"><button class="round" data-close aria-label="Close menu">×</button><nav aria-label="Mobile navigation"><a href="#/shop">The apothecary</a><a href="#/story">Our story</a><a href="#/ingredients">Ingredients</a><a href="#/journal">Journal</a><a href="#/contact">Contact</a></nav></dialog>
 <dialog id="bag-dialog" class="bag-dialog" aria-labelledby="bag-title"><div class="bag-head"><h2 id="bag-title">Your bag.</h2><button class="round" data-close aria-label="Close bag">×</button></div><p class="bag-note">Your selections stay here while you explore. Online payments are not available on this website yet.</p><div id="bag-items"></div><p id="bag-status" class="bag-status" role="status"></p><button class="pill outline bag-continue" data-close>Continue exploring</button></dialog>
 <dialog id="image-dialog" aria-label="Photograph"><button class="round dialog-close" data-close aria-label="Close photograph">×</button><img class="dialog-image" id="lightbox-image" alt=""></dialog>
@@ -263,64 +272,103 @@ document.addEventListener('visibilitychange',()=>{lastAdvance=performance.now();
 motionQuery.addEventListener('change',e=>{reduced=e.matches;playing=!reduced;lastAdvance=performance.now();setPauseUI();if(reduced){transition=null;pending=null;document.documentElement.classList.remove('js-motion');models.forEach((m,i)=>{m.visible=i===selected;m.position.set(0,0,0);m.rotation.set(0,0,0);m.scale.setScalar(1);});}});
 new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting;lastAdvance=performance.now();},{threshold:.05}).observe(hero);
 
-/* Real packaging: measured photographic proportions, pre-unwrapped labels, studio lighting. */
+/* Rigid photographs: preserve the existing animation state, never project or warp a PNG. */
+function photoExitPose(m){
+ const weights=m.views.map((_,i)=>i===0?1:0);
+ // Exact-appearance mode: the bottle master stays intact and fully opaque.
+ // Existing translation/uniform scale supply motion; mismatched back views
+ // and opacity fades must not change the glass or let the background tint it.
+ if(m.key==='immunity'||m.key==='digestive')return {weights,opacity:1};
+ if(!transition||transition.solo||m!==models[transition.old])return {weights,opacity:1};
+ const progress=Math.min(1,Math.abs(m.position.x)/8);
+ const smooth=value=>{const t=Math.max(0,Math.min(1,value));return t*t*(3-2*t);};
+ const footprint=view=>{const b=view.spec.bounds;return (b[2]-b[0])/(b[3]-b[1]);};
+ const frontWidth=footprint(m.views[0]);
+ // Do not stretch a narrow side photograph to manufacture a usable angle.
+ // If no broad angle exists, retain the front and use the smooth slide/fade.
+ // The supplied pouch side view is edge-on; stray edge pixels make its alpha
+ // bounds wider than the actual pouch, so exclude it explicitly as well.
+ const order=m.key==='broth'?[2]:(transition.direction<0?[2,1]:[1,2]);
+ const next=order.find(i=>m.views[i]&&footprint(m.views[i])/frontWidth>=.75);
+ if(next!==undefined){
+  const blend=smooth((progress-.08)/.84);
+  weights[0]=1-blend;weights[next]=blend;
+ }
+ // Recover elapsed progress from the unchanged cubic movement easing so the
+ // end fade stays gentle rather than accelerating with the exit displacement.
+ const time=progress<.5?Math.cbrt(progress/4):1-Math.cbrt((1-progress)/4);
+ return {weights,opacity:1-smooth((time-.8)/.2)};
+}
+function photoVector(){return {x:0,y:0,z:0,set(x,y,z){this.x=x;this.y=y;this.z=z;}};}
 function init3D(){
- if(!window.THREE)return;
- try{
- const T=THREE;scene=new T.Scene();camera=new T.PerspectiveCamera(32,1,.1,100);
- renderer=new T.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});
- renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.outputEncoding=T.sRGBEncoding;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
- $('#hero-canvas').append(renderer.domElement);
- const envCanvas=document.createElement('canvas');envCanvas.width=1024;envCanvas.height=512;const c=envCanvas.getContext('2d');c.fillStyle='#5f6765';c.fillRect(0,0,1024,512);const gradient=c.createLinearGradient(0,0,0,512);gradient.addColorStop(0,'#e8eee9');gradient.addColorStop(.5,'#747f7a');gradient.addColorStop(1,'#262f29');c.fillStyle=gradient;c.fillRect(0,0,1024,512);c.fillStyle='#ffffff';c.fillRect(150,85,105,260);c.fillStyle='#c4c9c5';c.fillRect(660,135,55,190);const env=new T.CanvasTexture(envCanvas);env.mapping=T.EquirectangularReflectionMapping;env.encoding=T.sRGBEncoding;const pmrem=new T.PMREMGenerator(renderer);scene.environment=pmrem.fromEquirectangular(env).texture;env.dispose();pmrem.dispose();
- scene.add(new T.HemisphereLight(0xffffff,0x44372c,.65));
- const key=new T.DirectionalLight(0xffffff,1);key.position.set(-4,6,8);scene.add(key);
- const fill=new T.DirectionalLight(0xffeedb,.4);fill.position.set(5,2,3);scene.add(fill);
- modelRoot=new T.Group();scene.add(modelRoot);
- const loader=new T.TextureLoader(),load=url=>new Promise((resolve,reject)=>loader.load(url,t=>{t.encoding=T.sRGBEncoding;t.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8);resolve(t);},undefined,reject));
- Promise.all(products.map(async(p,i)=>{
-  const spec=DATA.heroModels[p.key],texture=await load(asset(spec.texture)),g=new T.Group();g.userData.key=p.key;
-  if(p.key!=='broth'){
-   // A solid surface of revolution measured from the NEW photo silhouette.
-   // The complete photographic surface preserves its glass, cap and label.
-   const geometry=new T.LatheGeometry(spec.profile.map(([r,y])=>new T.Vector2(r,y)),160,-Math.PI,Math.PI*2);
-   const material=new T.MeshBasicMaterial({map:texture,toneMapped:false});
-   g.add(new T.Mesh(geometry,material));
-   const ends=new T.MeshStandardMaterial({color:0x171310,roughness:.48,metalness:.12});
-   for(const [point,flip] of [[spec.profile[0],true],[spec.profile[spec.profile.length-1],false]]){
-    const disk=new T.Mesh(new T.CircleGeometry(point[0],96),ends);disk.rotation.x=flip?Math.PI/2:-Math.PI/2;disk.position.y=point[1];g.add(disk);
-   }
-  }else{
-   const paper=new T.MeshStandardMaterial({color:0xf4f1eb,roughness:.84});
-   const front=new T.MeshBasicMaterial({map:texture,toneMapped:false});
-   const [backMap,sideMap]=await Promise.all([load(asset(spec.backTexture)),load(asset(spec.sideTexture))]);
-   const back=new T.MeshBasicMaterial({map:backMap,toneMapped:false});
-   const side=new T.MeshBasicMaterial({map:sideMap,toneMapped:false});
-   const geo=new T.BoxGeometry(spec.width,spec.height,.58,24,80,2),pos=geo.attributes.position;
-   for(let j=0;j<pos.count;j++){
-    const y=pos.getY(j),x=pos.getX(j),z=pos.getZ(j),t=(y+spec.height/2)/spec.height,row=Math.max(0,Math.min(80,Math.round((1-t)*80))),edge=spec.contour[row],u=x/spec.width+.5,nx=edge[0]+u*(edge[1]-edge[0]);
-    pos.setX(j,(nx-.5)*spec.width);pos.setZ(j,z*(.14+.86*Math.sin((1-t)*Math.PI*.75)));
-    // Front/rear photos are row-normalized; keep original face UVs so rear
-    // label text reads normally rather than mirroring or stretching twice.
-   }
-   geo.computeVertexNormals();g.add(new T.Mesh(geo,[side,side,paper,paper,front,back]));
-  }
-  const holder=new T.Group();holder.add(g);holder.userData.model=g;holder.visible=i===selected;modelRoot.add(holder);return holder;
- })).then(result=>{
-  models=result;modelsReady=true;$('#hero-fallback').hidden=true;
-  const s=document.createElement('canvas');s.width=s.height=256;const ctx=s.getContext('2d'),grad=ctx.createRadialGradient(128,128,0,128,128,128);grad.addColorStop(0,'rgba(38,29,16,.28)');grad.addColorStop(.5,'rgba(38,29,16,.12)');grad.addColorStop(1,'rgba(38,29,16,0)');ctx.fillStyle=grad;ctx.fillRect(0,0,256,256);const shadowMap=new T.CanvasTexture(s),shadow=new T.Mesh(new T.PlaneGeometry(4.8,1.0),new T.MeshBasicMaterial({map:shadowMap,transparent:true,depthWrite:false}));shadow.position.set(0,-3.5,-.9);modelRoot.add(shadow);resize();
- }).catch(error=>{console.warn('Product textures could not initialize; showing original product photograph.',error);$('#hero-canvas').hidden=true;});
+ // Keep the existing transition controller; blend intact views only on exit.
+ // The numeric rotation clock is NEVER applied as an image transform.
+ const stage=document.createElement('div');stage.className='product-image-stage';
+ $('#hero-canvas').replaceChildren(stage);
+ const ready=[];
+ models=products.map((p,i)=>{
+  const layer=document.createElement('div');layer.className='product-image-layer';layer.dataset.product=p.key;
+  const views=DATA.heroPhotos[p.key].map((spec,j)=>{
+   const view=document.createElement('div');view.className='product-photo-view';view.hidden=j!==0;
+   const img=document.createElement('img');img.className='product-image';img.alt='';img.draggable=false;
+   img.src=asset(spec.asset);img.width=spec.width;img.height=spec.height;img.decoding='async';
+   view.append(img);layer.append(view);
+   ready.push(img.decode());
+   return {element:view,image:img,spec};
+  });
+  stage.append(layer);
+  return {key:p.key,element:layer,views,visible:i===selected,position:photoVector(),rotation:photoVector(),scale:{value:1,setScalar(value){this.value=value;}}};
+ });
+ const shadow=document.createElement('div');shadow.className='product-stage-shadow';stage.prepend(shadow);
+ modelRoot={stage,shadow,unit:1};camera={};renderer={render:renderProductPhotos};
  resize();
- }catch(error){console.warn('3D unavailable; showing original product photograph.',error);$('#hero-canvas').hidden=true;}
+ Promise.all(ready).then(()=>{
+  modelsReady=true;$('#hero-fallback').hidden=true;
+  models.forEach((m,i)=>m.visible=i===selected);
+  lastAdvance=performance.now();resize();
+ }).catch(error=>{
+  console.warn('Product photographs could not load; keeping the supplied front photograph.',error);
+  $('#hero-canvas').hidden=true;
+ });
+}
+function renderProductPhotos(){
+ if(!modelRoot)return;
+ for(const m of models){
+  m.element.hidden=!m.visible;
+  // Translation and ONE scale value are the only animated CSS transforms.
+  m.element.style.transform='translate('+m.position.x*modelRoot.unit+'px,'+(-m.position.y*modelRoot.unit)+'px) scale('+m.scale.value+')';
+  const pose=photoExitPose(m);
+  m.element.style.opacity=pose.opacity;
+  m.views.forEach((view,j)=>{view.element.style.opacity=pose.weights[j];view.element.hidden=pose.weights[j]===0;});
+ }
 }
 function resize(){
  if(!renderer||!homeActive)return;
  const r=hero.getBoundingClientRect(),a=$('#hero-anchor').getBoundingClientRect();if(!r.width||!r.height)return;
- renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;
- const distance=16,fov=camera.fov*Math.PI/180,worldH=2*distance*Math.tan(fov/2),worldW=worldH*camera.aspect;
- const nx=((a.left+a.width/2)-r.left)/r.width-.5,ny=.5-((a.top+a.height/2)-r.top)/r.height;
- camera.position.set(-nx*worldW,-ny*worldH+.05,distance);camera.rotation.set(0,0,0);camera.updateProjectionMatrix();
- const availableHeight=Math.min(a.height*.92,window.innerWidth<761?350:670);currentScale=availableHeight/r.height*worldH/6.6;
- modelRoot.scale.setScalar(currentScale);
+ const worldH=32*Math.tan(16*Math.PI/180);
+ const availableHeight=Math.min(a.height*.92,window.innerWidth<761?350:670);
+ // Same old camera framing, stage center and travel distance in screen pixels.
+ // Reserve space for the entire PNG, including transparent margins.
+ const widest=Math.max(...models.flatMap(m=>m.views.map(v=>DATA.heroModels[m.key].height*v.spec.width/(v.spec.bounds[3]-v.spec.bounds[1]))));
+ const unit=Math.min(availableHeight/6.6,a.width*.96/widest);
+ const stage=modelRoot.stage;modelRoot.unit=unit;
+ stage.style.left=(a.left-r.left)+'px';stage.style.top=(a.top-r.top+.05*r.height/worldH)+'px';
+ stage.style.width=a.width+'px';stage.style.height=a.height+'px';
+ for(const m of models){
+  for(const view of m.views){
+   const s=view.spec,[left,top,right,bottom]=s.bounds;
+   const fit=Math.min(a.width/s.width,a.height/s.height);
+   const gain=unit*DATA.heroModels[m.key].height/((bottom-top)*fit);
+   const dx=(s.width/2-(left+right)/2)*fit*gain;
+   const dy=(s.height/2-(top+bottom)/2)*fit*gain;
+   // Constant per-view calibration, recalculated ONLY on viewport resize.
+   // All original pixels remain present; both axes receive the same gain.
+   view.element.style.transform='translate('+dx+'px,'+dy+'px) scale('+gain+')';
+  }
+ }
+ const shadow=modelRoot.shadow;shadow.style.width=(4.8*unit)+'px';shadow.style.height=unit+'px';
+ shadow.style.left=(a.width/2-2.4*unit)+'px';shadow.style.top=(a.height/2+3*unit)+'px';
+ renderProductPhotos();
 }
 window.addEventListener('resize',resize);if(window.ResizeObserver)new ResizeObserver(resize).observe($('#hero-anchor'));
 function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}

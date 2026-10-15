@@ -50,8 +50,13 @@ const protectedRegions = [
 for(const r of protectedRegions){
  const a=source.indexOf(r.start), b=source.indexOf(r.end,a);
  assert.ok(a>=0 && b>a, r.name);
- assert.deepEqual(fingerprint(source.slice(a,b+r.end.length)),r.expected,r.name+' must match the pre-feedback version');
+ let region=source.slice(a,b+r.end.length);
+ // The Oct 15 logo replacement is authorized; keep the rest of the header protected.
+ if(r.name==='header') region=region.replace("<img class=\"brand-symbol brand-emblem\" data-image=\"nova-emblem\" width=\"44\" height=\"44\" alt=\"\" aria-hidden=\"true\">","<svg class=\"brand-symbol\" viewBox=\"0 0 42 48\" aria-hidden=\"true\"><path d=\"M21 3v42M21 10C12 3 5 6 7 17c1 7 8 9 14 13M21 10c9-7 16-4 14 7-1 7-8 9-14 13M21 21C10 12 3 23 9 33c3 6 9 9 12 12M21 21c11-9 18 2 12 12-3 6-9 9-12 12\"/></svg>");
+ assert.deepEqual(fingerprint(region),r.expected,r.name+' must match the pre-feedback version (except the approved emblem)');
 }
+assert.equal((source.match(/data-image="nova-emblem"/g)||[]).length,2,'Emblem appears in header and footer');
+assert.deepEqual(Buffer.from(data.assets['nova-emblem'].split(',')[1],'base64'),fs.readFileSync(path.join(root,'assets/branding/nova-emblem.png')),'Embed the approved logo unchanged');
 for(const copy of [
  'A little more Synergy', '#earthmedicine', 'Potent herbal remedies',
  'A look inside The Alchemist’s Kitchen', 'The real people, plants and process behind every bottle</p>',
