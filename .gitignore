@@ -4,6 +4,7 @@ assets/official/inspect-*
 assets/official/contact-sheet.jpg
 node_modules/
 _site/
+_redirect_site/
 .env
 .env.*
 !.env.example

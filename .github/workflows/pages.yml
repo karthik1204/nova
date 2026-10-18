@@ -1,9 +1,6 @@
-name: Deploy Nova to GitHub Pages
+name: Redirect previous Nova address
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -35,14 +32,14 @@ jobs:
         run: |
           npm run build
           npm test
-      - name: Package public files only
-        run: node tools/package_site.cjs
+      - name: Package redirect to Cloudflare
+        run: node tools/build_redirect.cjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: _redirect_site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
