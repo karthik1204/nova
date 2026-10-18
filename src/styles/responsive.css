@@ -1,0 +1,506 @@
+@media (min-width: 1600px) {
+  .hero-copy h1 {
+    font-size: 135px;
+  }
+  .hero-grid {
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+  .hero-controls {
+    left: 8vw;
+    right: 8vw;
+  }
+  .hero-copy {
+    max-width: 660px;
+  }
+}
+@media (max-width: 1050px) {
+  .navigation {
+    gap: 17px;
+  }
+  .product-art {
+    height: 365px;
+  }
+  .hero-copy h1 {
+    font-size: 80px;
+  }
+  .hero {
+    min-height: 720px;
+  }
+  .progress-dot .product-label {
+    display: none;
+  }
+  .process-photo img {
+    height: 350px;
+  }
+  .ingredient-collage {
+    padding: 35px;
+  }
+  .founder-visual {
+    padding-right: 35px;
+  }
+  .founder-visual img {
+    height: 520px;
+  }
+  .founder-copy {
+    padding-left: 15px;
+  }
+  .footer-top {
+    gap: 30px;
+  }
+  .ingredient-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .detail-image {
+    height: 540px;
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --gutter: 22px;
+  }
+  .section {
+    padding-top: 65px;
+    padding-bottom: 65px;
+  }
+  .header {
+    height: 76px;
+  }
+  .brand-name {
+    font-size: 28px;
+  }
+  .brand-symbol {
+    width: 32px;
+    height: 36px;
+  }
+  .navigation {
+    display: none;
+  }
+  .header-actions {
+    gap: 10px;
+  }
+  .cart-link span {
+    display: none;
+  }
+  .menu-button {
+    display: block;
+    font-size: 12px;
+    border: 1px solid currentColor;
+    border-radius: 99px;
+    padding: 6px 12px;
+  }
+  .hero {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  .hero-grid {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 87px var(--gutter) 110px;
+    gap: 0;
+    height: auto;
+    align-items: stretch;
+  }
+  .hero-stage-anchor {
+    height: 390px;
+    max-height: none;
+    width: 100%;
+  }
+  .hero-copy {
+    max-width: none;
+  }
+  .hero-copy h1 {
+    font-size: clamp(58px, 14.5vw, 92px);
+    margin-bottom: 18px;
+  }
+  .hero-copy h1 br {
+    display: none;
+  }
+  .hero-copy .description {
+    font-size: 13px;
+    max-width: 500px;
+    margin-bottom: 17px;
+  }
+  .hero-copy .eyebrow {
+    margin-bottom: 13px;
+    font-size: 10px;
+  }
+  .sizes {
+    margin-bottom: 20px;
+  }
+  .hero-buy {
+    gap: 22px;
+  }
+  .hero-ghost {
+    left: 3%;
+    bottom: auto;
+    top: 33%;
+    font-size: 120px;
+  }
+  .hero-botanical {
+    width: 87px;
+    right: 4%;
+    top: 110px;
+  }
+  .hero-botanical.second {
+    width: 70px;
+    left: 5%;
+    right: auto;
+    top: 343px;
+  }
+  .hero-caption {
+    right: -2px;
+    bottom: 15%;
+  }
+  .hero-controls {
+    bottom: 23px;
+    padding-top: 17px;
+  }
+  .hero-controls .round {
+    width: 35px;
+    height: 35px;
+    font-size: 17px;
+  }
+  .slide-count {
+    display: none;
+  }
+  .progress-dots {
+    gap: 8px;
+  }
+  .progress-track {
+    width: 28px;
+  }
+  .progress-dot {
+    padding: 12px 0;
+  }
+  .progress-dot .product-label {
+    display: none;
+  }
+  .pause-button {
+    font-size: 11px;
+  }
+  .hero-orbit {
+    width: 80%;
+    max-height: 330px;
+    max-width: 330px;
+  }
+  .hero-fallback img {
+    height: 330px;
+    top: 115px;
+    right: calc(50% - 70px);
+  }
+  .ticker {
+    justify-content: flex-start;
+    padding: 14px 22px;
+    gap: 20px;
+    font-size: 10px;
+  }
+  .ticker span {
+    gap: 20px;
+  }
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding-bottom: 35px;
+  }
+  .intro-copy {
+    max-width: 100%;
+    font-size: 14px;
+  }
+  .values {
+    grid-template-columns: 1fr 1fr;
+    gap: 25px 18px;
+    padding-top: 0;
+  }
+  .value h3 {
+    font-size: 22px;
+  }
+  .value p {
+    font-size: 12px;
+  }
+  .value svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 10px;
+  }
+  .section-heading {
+    align-items: start;
+    gap: 25px;
+    margin-bottom: 32px;
+  }
+  .section-heading .text-link {
+    flex-shrink: 0;
+    font-size: 11px;
+    margin-top: 12px;
+  }
+  .section-heading h2 {
+    font-size: 42px;
+  }
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+  .product-art {
+    height: 430px;
+    border-radius: 190px 190px 5px 5px;
+  }
+  .product-card-meta {
+    padding-top: 18px;
+  }
+  .product-card h3 {
+    font-size: 28px;
+  }
+  .ingredient-feature {
+    grid-template-columns: 1fr;
+  }
+  .ingredient-collage {
+    min-height: 410px;
+    padding: 35px;
+  }
+  .botanical-cover {
+    height: 350px;
+    width: 68%;
+  }
+  .floating-specimen {
+    width: 27%;
+    right: 8%;
+  }
+  .specimen-no {
+    top: 28px;
+  }
+  .ingredient-caption {
+    bottom: 17px;
+  }
+  .ingredient-copy {
+    padding: 30px var(--gutter) 60px;
+  }
+  .ingredient-copy h2 {
+    font-size: 45px;
+    max-width: 450px;
+  }
+  .process-gallery {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .process-photo img {
+    height: 290px;
+  }
+  .process-photo:nth-child(2) {
+    padding-top: 35px;
+  }
+  .process-photo:nth-child(2) img {
+    height: 245px;
+  }
+  .process-photo:nth-child(3) {
+    grid-column: 1/-1;
+    margin-top: 18px;
+  }
+  .process-photo:nth-child(3) img {
+    height: 270px;
+  }
+  .photo-caption {
+    font-size: 10px;
+  }
+  .mini-gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mini-gallery img {
+    height: 160px;
+  }
+  .founder-section {
+    grid-template-columns: 1fr;
+  }
+  .founder-visual {
+    padding: 55px 45px 30px;
+  }
+  .founder-visual img {
+    height: 460px;
+    border-radius: 200px 200px 4px 4px;
+  }
+  .founder-stamp {
+    right: 22px;
+    bottom: 4px;
+    width: 100px;
+    height: 100px;
+    font-size: 20px;
+  }
+  .founder-copy {
+    padding: 40px var(--gutter) 65px;
+  }
+  .founder-copy h2 {
+    font-size: 48px;
+    max-width: 500px;
+  }
+  .traditions {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .tradition-list summary {
+    font-size: 23px;
+  }
+  .journal-preview {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .journal-preview img {
+    height: 300px;
+  }
+  .newsletter {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 65px var(--gutter);
+  }
+  .newsletter h2 {
+    font-size: 54px;
+  }
+  .newsletter-star {
+    right: 5%;
+    bottom: -20px;
+  }
+  .footer {
+    padding-top: 50px;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 38px 25px;
+  }
+  .footer-brand {
+    grid-column: 1/-1;
+  }
+  .footer-photo {
+    display: none;
+  }
+  .footer-end {
+    gap: 20px;
+    line-height: 1.7;
+  }
+  .inner-hero {
+    padding-top: 55px;
+    padding-bottom: 40px;
+  }
+  .inner-hero h1 {
+    font-size: 62px;
+  }
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .detail-image {
+    height: 475px;
+    border-radius: 175px 175px 4px 4px;
+  }
+  .detail-copy h1 {
+    font-size: 66px;
+  }
+  .detail-copy .detail-description {
+    font-size: 14px;
+  }
+  .product-page {
+    padding-top: 25px;
+  }
+  .ingredient-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+  .ingredient-card .image-wrap {
+    height: 195px;
+    padding: 16px;
+  }
+  .ingredient-card span {
+    font-size: 20px;
+    padding: 15px;
+    line-height: 1.15;
+  }
+  .ingredients-section .section-heading {
+    flex-direction: column;
+  }
+  .story-page-header {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .story-page-header img {
+    height: 450px;
+  }
+  .story-page-header h1 {
+    font-size: 64px;
+  }
+  .story-article {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .story-article aside {
+    position: static;
+  }
+  .story-body p {
+    font-size: 15px;
+  }
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .contact-layout img {
+    height: 370px;
+  }
+  .contact-layout h1 {
+    font-size: 65px;
+  }
+  .journal-page-card {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .journal-page-card img {
+    height: 330px;
+  }
+  .ingredient-dialog {
+    grid-template-columns: 1fr;
+  }
+  .ingredient-dialog img {
+    min-height: 0;
+    height: 260px;
+  }
+  .ingredient-dialog-copy {
+    padding: 25px;
+  }
+  .ingredient-dialog-copy h2 {
+    font-size: 36px;
+  }
+  .dialog-image {
+    max-width: 90vw;
+  }
+  .hero-price {
+    font-size: 19px;
+  }
+  .pill {
+    min-height: 48px;
+    padding: 14px 22px;
+  }
+}
+@media (max-width: 380px) {
+  .hero-stage-anchor {
+    height: 340px;
+  }
+  .hero-copy h1 {
+    font-size: 53px;
+  }
+  .hero-copy .description {
+    font-size: 12px;
+  }
+  .hero-controls .round {
+    width: 31px;
+    height: 31px;
+  }
+  .product-art {
+    height: 380px;
+  }
+  .founder-visual {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .founder-visual img {
+    height: 400px;
+  }
+  .ingredient-card .image-wrap {
+    height: 160px;
+  }
+}

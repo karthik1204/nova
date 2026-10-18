@@ -1,0 +1,22 @@
+{
+  "styles": [
+    "styles/base.css",
+    "styles/layout.css",
+    "styles/responsive.css",
+    "styles/editorial.css",
+    "styles/products.css",
+    "styles/typography.css",
+    "styles/hero.css",
+    "styles/brand.css"
+  ],
+  "scripts": [
+    "scripts/state.js",
+    "scripts/gallery.js",
+    "scripts/shop.js",
+    "scripts/home.js",
+    "scripts/pages.js",
+    "scripts/events.js",
+    "scripts/hero.js",
+    "scripts/start.js"
+  ]
+}

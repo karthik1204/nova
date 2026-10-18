@@ -2,11 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
-const {execFileSync} = require('node:child_process');
-const root = path.resolve(__dirname, '..');
-const source = fs.readFileSync(path.join(root, 'site.template.html'), 'utf8');
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const data = JSON.parse(html.match(/<script[^>]*id="nova-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const { root, source, data, css, functionSource, assetBytes } = require('./test_helpers.cjs');
 let photos = 0;
 for (const product of data.products) {
   const model = data.heroModels[product.key];
@@ -17,8 +13,8 @@ for (const product of data.products) {
     const bytes = fs.readFileSync(product.key==='immunity' && i===0
       ? path.join(root,'assets/hero-masters/immunity-front.png')
       : path.join(root, 'assets/hero-oct14', product.key+'-'+names[i]+'.png'));
-    assert.ok(data.assets[view.asset].startsWith('data:image/png;base64,'));
-    const embedded = Buffer.from(data.assets[view.asset].split(',')[1], 'base64');
+    assert.ok(data.assets[view.asset].endsWith('.png'));
+    const embedded = assetBytes(view.asset);
     assert.equal(crypto.createHash('sha256').update(embedded).digest('hex'), crypto.createHash('sha256').update(bytes).digest('hex'), 'Display original PNG bytes without label edits');
     assert.equal(view.width, bytes.readUInt32BE(16));
     assert.equal(view.height, bytes.readUInt32BE(20));
@@ -28,17 +24,14 @@ for (const product of data.products) {
   assert.equal(model.source, views[0].asset, 'Fallback must also show the latest front photo');
 }
 assert.equal(photos, 9);
-assert.ok(source.includes('photo(DATA.heroModels[p.key].source'));
+assert.match(functionSource('renderHero'), /photo\(DATA\.heroModels\[p\.key\]\.source/);
 assert.ok(source.includes('function renderProductPhotos('), 'Use rigid photographic layers, not projected labels');
 assert.ok(!source.includes('new T.LatheGeometry'), 'Do not wrap supplied photographs onto geometry');
-// Protect the original transition, rotation, speed and interaction behavior.
-const original = execFileSync('git', ['show', 'HEAD:site.template.html'], {cwd:root, encoding:'utf8'});
-const animation = s => s.slice(s.indexOf('function changeSlide('), s.indexOf('renderRoute(false);init3D();')).replace(/\r\n/g, '\n');
-assert.equal(animation(source), animation(original));
-const adapter = source.slice(source.indexOf('function photoExitPose('), source.indexOf("window.addEventListener('resize',resize)"));
+// Full controller equivalence is checked against the pre-refactor syntax tree in test_structure.cjs.
+const adapter = ['photoExitPose','photoVector','init3D','renderProductPhotos','resize'].map(functionSource).join('\n');
 assert.ok(source.includes('function photoExitPose('), 'Exit uses a continuous overlap, not hard angle swaps');
 assert.ok(!/scaleX|scaleY|rotateY|perspective|skew|new T\./.test(adapter));
-assert.ok(source.includes('object-fit:contain;object-position:center center;transform-origin:center center'));
+assert.ok(css.replace(/\s+/g,'').includes('object-fit:contain;object-position:centercenter;transform-origin:centercenter'));
 assert.ok(adapter.includes('ready.push(img.decode())'), 'Predecode every view to prevent blank frame swaps');
 // Exercise the actual unchanged controller at 120 frames/sec in both directions.
 const vm = require('node:vm');
@@ -54,9 +47,7 @@ for (const width of [390, 1440]) {
     $$: () => [], renderer: null, camera: {}, scene: {}, pointer: {x:0,y:0}
   };
   vm.createContext(context);
-  vm.runInContext(adapter.slice(0, adapter.indexOf('function init3D(')) +
-    adapter.slice(adapter.indexOf('function renderProductPhotos('), adapter.indexOf('function resize(')) +
-    source.slice(source.indexOf('function ease('), source.indexOf('renderRoute(false);init3D();')), context);
+  vm.runInContext(['photoExitPose','photoVector','renderProductPhotos','ease','changeSlide','frame'].map(functionSource).join('\n'), context);
   context.models = data.products.map(p => ({key:p.key, element:{style:{}},
     views:data.heroPhotos[p.key].map(spec => ({spec,element:{style:{}}})),
     position:context.photoVector(), rotation:context.photoVector(),
@@ -106,4 +97,4 @@ for (const width of [390, 1440]) {
 }
 console.log('PASS: '+checkedFrames+' desktop/mobile transition frames; independent layers; uniform scaling only; no empty views.');
 assert.equal(data.heroPhotos.immunity[0].asset,'hero-immunity-master-front');
-console.log('PASS: all 9 PNGs embedded byte-for-byte, including approved Immunity front master; bottle color protected; original animation controller unchanged.');
+console.log('PASS: all 9 PNGs referenced without changes, including approved Immunity front master; bottle color protected; original animation controller unchanged.');

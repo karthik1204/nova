@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <title>Nova • Website editor</title
+    ><link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <header
+      ><a class="brand" href="../">nova <small>website editor</small></a
+      ><a href="../" target="_blank" rel="noopener">View website ↗</a
+      ><button id="signout" hidden>Sign out</button></header
+    >
+    <main>
+      <section id="login" class="login panel">
+        <span class="eyebrow">YOUR WEBSITE, IN YOUR HANDS</span><h1>A little more control.</h1>
+        <p>Sign in with your approved admin email to manage website words and pictures.</p>
+        <form id="login-form"
+          ><label
+            >Email address<input id="email" type="email" autocomplete="email" required /></label
+          ><button class="primary">Send sign-in link</button></form
+        >
+        <p class="muted"
+          >No shared password. Your email must be verified, and server-side admin permission is
+          required.</p
+        >
+        <details
+          ><summary>Using an email verification code instead?</summary
+          ><form id="code-form"
+            ><label
+              >Email code<input
+                id="code"
+                autocomplete="one-time-code"
+                inputmode="numeric"
+                pattern="[0-9]{6,10}"
+                required /></label
+            ><button>Verify code</button></form
+          ><p class="muted"
+            >Available when the project's email template is configured to include a code.</p
+          ></details
+        >
+      </section>
+      <p id="status" role="status" aria-live="polite">Checking your sign-in…</p>
+      <section id="workspace" hidden>
+        <div class="toolbar"
+          ><div
+            ><span class="eyebrow">NOVA HEALTH SYNERGY</span><h1>Make it yours.</h1
+            ><p id="save-state">Saved draft</p></div
+          ><div class="actions"
+            ><button id="reload">Reload draft</button><button id="save">Save draft</button
+            ><button id="publish" class="primary">Publish changes</button></div
+          ></div
+        >
+        <div class="editor-grid"
+          ><aside class="panel controls">
+            <h2>1. Choose what to edit</h2>
+            <p
+              >Choose a page, then select its words or a photo in the preview. Use Alt-click to
+              follow links inside the preview.</p
+            >
+            <label
+              >Preview page<select id="page"
+                ><option value="">Home</option
+                ><option value="shop">Shop</option
+                ><option value="product/digestive">Digestive Tonic</option
+                ><option value="product/immunity">Immunity Tonic</option
+                ><option value="product/broth">Immunity Broth Kit</option
+                ><option value="story">Our story</option
+                ><option value="contact">Contact</option
+                ><option value="journal">Journal</option></select
+              ></label
+            >
+            <label class="check"
+              ><input id="edit-mode" type="checkbox" checked /> Click-to-edit mode</label
+            >
+            <section id="selection"
+              ><p class="muted">Select text or a picture in the preview to begin.</p></section
+            >
+            <details open class="editor-section"
+              ><summary>Page text — search and edit</summary>
+              <label
+                >Find words<input
+                  id="text-search"
+                  type="search"
+                  placeholder="Heading, paragraph, button…"
+              /></label>
+              <p id="text-count" class="muted">Loading page fields…</p
+              ><div id="text-list" class="field-list"></div>
+            </details>
+            <details class="editor-section"
+              ><summary>Website colors</summary
+              ><p class="muted"
+                >Changes apply only when you choose a color. Reset restores the original style.
+                Check text contrast in the preview before publishing.</p
+              ><div id="color-list"></div
+            ></details>
+            <details class="editor-section"
+              ><summary>Website image library</summary>
+              <label
+                >Show images<select id="image-scope"
+                  ><option value="page">Current page</option
+                  ><option value="all">All website images</option></select
+                ></label
+              >
+              <label
+                >Find an image<input
+                  id="image-search"
+                  type="search"
+                  placeholder="Search photo name…"
+              /></label>
+              <div id="image-list" class="field-list image-list"></div>
+              <p class="muted"
+                >Choose a photo to replace, hide or restore it. Add new photos using Product photo
+                galleries below. The logo and calibrated hero frames stay protected.</p
+              >
+            </details>
+            <details class="editor-section"
+              ><summary>Product prices</summary
+              ><p class="muted"
+                >Updates product cards, product pages and bag calculations together. This does not
+                enable online checkout.</p
+              ><div id="price-list"></div
+            ></details>
+            <hr /><h2>2. Product photo galleries</h2>
+            <label
+              >Product<select id="gallery-product"
+                ><option value="digestive">Digestive Tonic</option
+                ><option value="immunity">Immunity Tonic</option
+                ><option value="broth">Immunity Broth Kit</option></select
+              ></label
+            >
+            <div id="gallery-list"></div><button id="add-photo">Add a photo</button
+            ><button id="reset-gallery">Restore original gallery</button>
+            <p class="muted"
+              >PNG, JPG or WebP · up to 10 MB. Uploaded files are public by URL immediately; they
+              appear on the website only after publishing. Removing a photo keeps the file for
+              version recovery.</p
+            >
+            <hr /><h2>3. Publishing history</h2><div id="history"></div>
+            <p class="muted"
+              >Restoring a version loads a draft. Review and publish to make it live.</p
+            > </aside
+          ><section class="preview panel"
+            ><div class="preview-bar"
+              ><strong>Private draft preview</strong
+              ><button id="refresh-preview">Refresh preview</button></div
+            ><iframe id="preview" title="Website draft preview"></iframe></section
+        ></div>
+        <p class="muted"
+          >Edit page text, section colors, photos, galleries and prices without code. Shared
+          header/footer text applies across pages. Links, form behavior, layout, logo and calibrated
+          hero images remain protected. Publishing updates the connected website on its next load;
+          already-open pages need a refresh.</p
+        >
+      </section>
+    </main>
+    <script defer src="../assets/site-data.js"></script
+    ><script defer src="admin.js"></script> </body
+></html>

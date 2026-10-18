@@ -1,0 +1,20 @@
+{
+  "name": "nova-health-synergy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nova Health Synergy static storefront",
+  "scripts": {
+    "build": "node tools/build.cjs",
+    "build:deploy": "npm run build && npm test && node tools/package_site.cjs",
+    "test": "node tools/test_structure.cjs && node tools/test_document_feedback.cjs && node tools/test_product_gallery.cjs && node tools/test_hero_models.cjs && node tools/test_cms.cjs",
+    "format": "prettier --write src/index.html src/**/*.js src/**/*.css tools/build.cjs tools/site_source.cjs"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0",
+    "esbuild": "0.28.2",
+    "prettier": "3.6.2"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.118.0"
+  }
+}

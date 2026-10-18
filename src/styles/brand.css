@@ -1,0 +1,9 @@
+/* Contain the supplied emblem in the existing brand slot without distortion. */
+.brand-emblem {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.footer .brand {
+  align-items: center;
+}

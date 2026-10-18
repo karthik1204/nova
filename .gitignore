@@ -3,5 +3,12 @@ assets/official/*.json
 assets/official/inspect-*
 assets/official/contact-sheet.jpg
 node_modules/
+_site/
+.env
+.env.*
+!.env.example
+output/admin-*.png
+output/hosting-*.png
+output/hosting-package*/
 __pycache__/
 tools/publish_pages.py

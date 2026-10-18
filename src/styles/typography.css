@@ -1,0 +1,45 @@
+/* Word feedback: scoped below-hero typography; logo and hero remain unchanged. */
+.process .section-heading .eyebrow {
+  color: #000;
+  opacity: 1;
+  max-width: none;
+}
+.process .section-heading > p {
+  font-size: clamp(17px, 1.4vw, 21px);
+  line-height: 1.6;
+  max-width: 340px;
+  opacity: 1;
+}
+.process .section-heading h2 em {
+  color: #626e42;
+}
+.founder-copy .signature {
+  margin-bottom: 4px;
+}
+.founder-copy .founder-role {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+:root[data-theme='dark'] .process .section-heading .eyebrow {
+  color: var(--ink);
+}
+:root[data-theme='dark'] .process .section-heading h2 em {
+  color: #bac88f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .process .section-heading .eyebrow {
+    color: var(--ink);
+  }
+  :root:not([data-theme='light']) .process .section-heading h2 em {
+    color: #bac88f;
+  }
+}
+@media (max-width: 760px) {
+  .process .section-heading {
+    flex-direction: column;
+  }
+  .process .section-heading > p {
+    max-width: 100%;
+  }
+}
