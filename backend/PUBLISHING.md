@@ -20,11 +20,13 @@ No Git push or website rebuild is needed for these content changes after this ed
 
 Uploads are public by URL immediately, even before publishing. Do not upload confidential material. Removing a gallery photo hides it but keeps its stored file for version recovery.
 
-## One-time hosting setup
+## Hosting and automatic code updates
 
-The current site is hosted on GitHub Pages. GitHub's published Pages limits restrict using Pages as free hosting for an online business/e-commerce website. For Nova's production storefront, use a suitable commercial-site host, such as **Cloudflare Pages Free**, subject to its limits and terms. No hosting migration has been performed.
+The production site is deployed on **Cloudflare Pages Free** at <https://nova-1qm.pages.dev/>. The editor is at <https://nova-1qm.pages.dev/admin/>. Cloudflare project `nova` builds the `main` branch of `karthik1204/nova` automatically after a Git push. Local folder edits alone do not deploy: commit and push code changes first.
 
-After the owner approves the host:
+The GitHub Pages workflow publishes a small redirect from the previous `https://karthik1204.github.io/nova/` address to Cloudflare, preserving page paths, queries and hash routes. It does not host a second copy of the storefront.
+
+Deployment settings and remaining authentication verification:
 
 1. In Cloudflare Pages, connect the existing GitHub `nova` repository and select its intended production branch.
 2. Use no framework preset. Set the build command to `npm run build:deploy` and the output directory to `_site`. The `.node-version` file selects Node.js 22. The dependency install uses the checked-in package lock.
@@ -32,7 +34,9 @@ After the owner approves the host:
 4. In Supabase Authentication URL Configuration, set the live Site URL and allow the exact live `/admin/` redirect URL. Keep the local admin redirect if local editing is needed.
 5. Verify email sign-in, draft preview, a reviewed publish, and a fresh public page load before considering setup complete. Production email delivery may need custom SMTP; do not upgrade or purchase a service without approval.
 
-You can use a free `pages.dev` address. A custom domain is optional and may cost separately. Existing GitHub Pages links will not automatically redirect after a migration.
+The first Cloudflare production build and public homepage were verified successfully. Live admin email sign-in and a reviewed publish still need verification after the owner signs in to the Supabase account that owns the Nova organization. Do not treat a successful public deployment as proof that admin sign-in has been configured.
+
+The `pages.dev` address is free. A custom domain is optional and may cost separately.
 
 References: [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits), [Cloudflare Pages](https://www.cloudflare.com/developer-platform/products/pages/), [Cloudflare Pages limits](https://developers.cloudflare.com/pages/platform/limits/).
 

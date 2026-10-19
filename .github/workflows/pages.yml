@@ -1,6 +1,8 @@
 name: Redirect previous Nova address
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
