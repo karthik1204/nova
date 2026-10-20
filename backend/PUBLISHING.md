@@ -34,7 +34,7 @@ Deployment settings and remaining authentication verification:
 4. In Supabase Authentication URL Configuration, set the live Site URL and allow the exact live `/admin/` redirect URL. Keep the local admin redirect if local editing is needed.
 5. Verify email sign-in, draft preview, a reviewed publish, and a fresh public page load before considering setup complete. Production email delivery may need custom SMTP; do not upgrade or purchase a service without approval.
 
-The first Cloudflare production build and public homepage were verified successfully. Live admin email sign-in and a reviewed publish still need verification after the owner signs in to the Supabase account that owns the Nova organization. Do not treat a successful public deployment as proof that admin sign-in has been configured.
+Cloudflare production builds, the public homepage, and the old-address homepage/admin redirects were verified successfully. The backend was migrated to the owner's new **NOVA Project** on October 19, 2026; live and local login redirect URLs are configured. Live admin email sign-in and a reviewed publish still need verification in the new project. Do not treat a successful public deployment as proof that admin sign-in has been verified.
 
 The `pages.dev` address is free. A custom domain is optional and may cost separately.
 

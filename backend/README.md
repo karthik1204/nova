@@ -1,6 +1,7 @@
 # Nova website administration
 
-Project: **Nova Website**, `zbgjihikceowzkgwmisv`, organization **Nova**, us-east-1.
+Project: **NOVA Project**, `eblthcvnebllxpsrmjzg`, organization **Nova** (`vuzhismbmyyamddaoaas`), us-east-1.
+Migrated on October 19, 2026 at the owner's request. Draft, published content, version history and the private admin allowlist were copied and compared with the previous project. No uploaded storage objects existed; the bundled website photos remain in Git. The previous project is retained unchanged for recovery, not deleted.
 The public URL and publishable key are in `src/cms/config.json`. They are safe browser configuration, not server credentials. Never add a service-role key to this repository.
 
 ## Finish email sign-in setup
@@ -14,7 +15,7 @@ In the Supabase dashboard for this project:
 3. Authentication → SMTP: configure a transactional email provider for production. The default sender only delivers to organization team members; it is not a production delivery service. Do not invite an editor into the Supabase organization merely to bypass this restriction—organization access is broader than website editing.
 4. Visit `/admin/`, enter the approved address, and complete email verification yourself. Test sign-in, upload, save draft, preview, publish, and restore on the deployed host before launch.
 
-No SMTP credentials were supplied and no paid email service was purchased. Redirect configuration and real email sign-in must be verified before treating login as ready.
+No SMTP credentials were supplied and no paid email service was purchased. The Site URL is `https://nova-1qm.pages.dev`, with exact live and local `/admin/` redirect URLs configured. Real email sign-in still requires verification on the new project; sessions from the old project are not transferred.
 
 ## Content workflow
 
