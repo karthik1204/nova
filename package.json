@@ -4,9 +4,10 @@
   "private": true,
   "description": "Nova Health Synergy static storefront",
   "scripts": {
+    "preview": "node tools/preview.cjs",
     "build": "node tools/build.cjs",
     "build:deploy": "npm run build && npm test && node tools/package_site.cjs",
-    "test": "node tools/test_structure.cjs && node tools/test_document_feedback.cjs && node tools/test_product_gallery.cjs && node tools/test_hero_models.cjs && node tools/test_cms.cjs",
+    "test": "node tools/test_structure.cjs && node tools/test_document_feedback.cjs && node tools/test_product_gallery.cjs && node tools/test_hero_models.cjs && node tools/test_cms.cjs && node tools/test_reviews.cjs",
     "format": "prettier --write src/index.html src/**/*.js src/**/*.css tools/build.cjs tools/site_source.cjs"
   },
   "devDependencies": {

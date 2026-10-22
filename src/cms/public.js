@@ -163,6 +163,13 @@ function enableEditor() {
 
 async function start() {
   edits = cleanContent(await readContent(), base);
+  window.NOVA_REVIEWS = edits.reviews;
+  // Demo content is never saved or published. It is limited to the editor or localhost.
+  window.NOVA_REVIEWS_DEMO =
+    !edits.reviews.length &&
+    (isPreview ||
+      (['127.0.0.1', 'localhost'].includes(location.hostname) &&
+        new URLSearchParams(location.search).has('reviews-demo')));
   const style = document.createElement('style');
   style.textContent = colorsCSS(edits.colors);
   document.head.append(style);

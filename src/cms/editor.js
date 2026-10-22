@@ -1,7 +1,9 @@
 import { pages, colorFields, sections, validScope } from './settings.js';
 import { editableAsset, editableText } from './content.js';
+import { createReviewsEditor } from './reviews-editor.js';
 
 export function createEditor({ data, getDraft, changed, refresh, selectText, selectImage }) {
+  const reviewsEditor = createReviewsEditor({ data, getDraft, changed, refresh });
   const $ = (id) => document.getElementById(id);
   const node = (tag, text) => {
     const n = document.createElement(tag);
@@ -199,6 +201,7 @@ export function createEditor({ data, getDraft, changed, refresh, selectText, sel
   $('image-scope').onchange = renderImages;
   return {
     render() {
+      reviewsEditor.render();
       renderColors();
       renderPrices();
       renderTexts();

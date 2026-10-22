@@ -9,6 +9,20 @@
   padding-top: 16px;
   margin-top: 20px;
 }
+.review-editor-row {
+  min-width: 0;
+  border: 1px solid #dce1d7;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 18px 0;
+}
+.review-editor-row legend {
+  font-weight: 600;
+  padding: 0 5px;
+}
+.review-editor-row .actions {
+  margin-top: 16px;
+}
 .editor-section > summary {
   font-weight: 600;
   cursor: pointer;

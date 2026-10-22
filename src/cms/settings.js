@@ -19,6 +19,7 @@ export const sections = [
   ['kitchen', 'Kitchen', '#kitchen'],
   ['standard', 'Our standard', '.nova-standard'],
   ['shop', 'Product section', '.shop-section,.shop-page'],
+  ['reviews', 'Customer reviews', '.reviews-section'],
   ['ingredients', 'Botanical feature', '.ingredient-feature'],
   ['founder', 'Founder', '.founder-section'],
   ['traditions', 'Traditions', '.traditions'],

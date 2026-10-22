@@ -7,9 +7,25 @@ export const emptyContent = () => ({
   galleries: {},
   pages: {},
   colors: {},
-  prices: {}
+  prices: {},
+  reviews: []
 });
 export const productKeys = ['digestive', 'immunity', 'broth'];
+export const validReview = (item) =>
+  Boolean(
+    item &&
+      productKeys.includes(item.product) &&
+      typeof item.name === 'string' &&
+      item.name.trim().length > 0 &&
+      item.name.length <= 80 &&
+      typeof item.message === 'string' &&
+      item.message.trim().length > 0 &&
+      item.message.length <= 800 &&
+      Number.isInteger(item.rating) &&
+      item.rating >= 1 &&
+      item.rating <= 5 &&
+      typeof item.visible === 'boolean'
+  );
 export const editableAsset = (key, assets) =>
   Object.hasOwn(assets, key) && !key.startsWith('hero-') && key !== 'nova-emblem';
 export function imageURL(value, assets) {
@@ -24,6 +40,18 @@ export function imageURL(value, assets) {
 export function cleanContent(input, assets) {
   const result = emptyContent();
   if (!input || typeof input !== 'object') return result;
+  if (Array.isArray(input.reviews)) {
+    result.reviews = input.reviews
+      .slice(0, 60)
+      .filter(validReview)
+      .map(({ product, name, message, rating, visible }) => ({
+        product,
+        name,
+        message,
+        rating,
+        visible
+      }));
+  }
   for (const [scope, entries] of Object.entries(input.pages || {})) {
     if (!validScope(scope) || !entries || typeof entries !== 'object') continue;
     const safe = {};

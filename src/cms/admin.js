@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import config from './config.json';
-import { cleanContent, emptyContent, editableText, editableAsset } from './content.js';
+import { cleanContent, emptyContent, editableText, editableAsset, validReview } from './content.js';
 import { validScope } from './settings.js';
 import { createEditor } from './editor.js';
 
@@ -277,6 +277,10 @@ async function load() {
   notice('You are signed in. Draft changes stay private until you publish.');
 }
 async function save() {
+  if (draft.reviews.length > 60 || draft.reviews.some((review) => !validReview(review)))
+    throw Error(
+      'Complete every review’s name, message, product and 1–5 star rating, or remove the unfinished review before saving.'
+    );
   const content = cleanContent(draft, assets);
   const row = unwrap(
     await db

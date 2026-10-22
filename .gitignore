@@ -9,6 +9,7 @@ _redirect_site/
 .env.*
 !.env.example
 output/admin-*.png
+output/reviews-*.png
 output/hosting-*.png
 output/hosting-package*/
 __pycache__/

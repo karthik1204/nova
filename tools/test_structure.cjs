@@ -9,13 +9,13 @@ const { root, read, js, css, html, data, content, hash, semanticHash, manifest }
   const baseline = JSON.parse(read('tests/fixtures/refactor-baseline.json'));
   const bundled = read('assets/app.js');
   new vm.Script(bundled);
-  const withoutCmsHooks = bundled.replace('  if (window.NOVA_CMS_GALLERIES?.[p.key]?.length) return window.NOVA_CMS_GALLERIES[p.key];\n', '').replace("photo(items[0].id, items[0].alt, 'id=\"detail-photo\"')", "photo(p.cutout, items[0].alt, 'id=\"detail-photo\"')");
+  const withoutCmsHooks = bundled.replace(read('src/scripts/reviews.js'), '').replace('  if (window.NOVA_CMS_GALLERIES?.[p.key]?.length) return window.NOVA_CMS_GALLERIES[p.key];\n', '').replace("photo(items[0].id, items[0].alt, 'id=\"detail-photo\"')", "photo(p.cutout, items[0].alt, 'id=\"detail-photo\"')");
   assert.equal(semanticHash(withoutCmsHooks), baseline.script, 'Original application logic unchanged apart from two explicit CMS gallery hooks');
   assert.equal(semanticHash(bundled), semanticHash("(() => {'use strict';\n" + js + '\n})();'), 'Bundle uses current source files');
-  const canonicalCss = await prettier.format(css.replace(/\/\*[\s\S]*?\*\//g, ''), { parser: 'css' });
+  const canonicalCss = await prettier.format(css.replace(read('src/styles/reviews.css'), '').replace(/\/\*[\s\S]*?\*\//g, ''), { parser: 'css' });
   assert.equal(hash(canonicalCss.replace(/\n\s*\n/g, '\n')), baseline.css, 'CSS rules, values and cascade order are unchanged');
   assert.equal(read('assets/site.css'), css, 'Stylesheet is rebuilt from source');
-  const canonicalMarkup = await prettier.format(read('src/index.html').replace('assets/cms-public.js', 'assets/app.js'), { parser: 'html', htmlWhitespaceSensitivity: 'strict' });
+  const canonicalMarkup = await prettier.format(read('src/index.html').replace(/\s*<!-- reviews:start -->[\s\S]*?<!-- reviews:end -->/, '').replace('assets/cms-public.js', 'assets/app.js'), { parser: 'html', htmlWhitespaceSensitivity: 'strict' });
   assert.equal(hash(canonicalMarkup), baseline.markup, 'Page markup is unchanged apart from formatting');
   assert.equal(html, read('src/index.html'), 'HTML build is current');
   const { assets, ...text } = data;

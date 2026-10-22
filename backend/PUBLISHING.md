@@ -40,6 +40,14 @@ The `pages.dev` address is free. A custom domain is optional and may cost separa
 
 References: [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits), [Cloudflare Pages](https://www.cloudflare.com/developer-platform/products/pages/), [Cloudflare Pages limits](https://developers.cloudflare.com/pages/platform/limits/).
 
-## What remains code-managed
+## Customer reviews
+
+After deploying the reviews feature, open **Customer reviews — all three products** in the admin editor. Add a genuine customer's display name, rating and exact message; select Digestive Tonic, Immunity Tonic or Immunity Broth Kit. Enable **Show this review after publishing**, then Save draft or Publish changes. Reviews can be reordered, hidden or removed from the draft. The existing publishing history also restores reviews.
+
+The homepage section appears below the product cards only when there are visible published reviews. With no reviews, the private editor shows clearly marked sample cards; these samples are never saved or published. For a local design preview, run `npm run build` and `npm run preview`, then open `http://127.0.0.1:4173/?reviews-demo=1`. The demo query is ignored on public hosts. The section inherits the current website palette; automatic scrolling pauses on hover, keyboard focus and touch, with a separate pause control and reduced-motion support.
+
+Reviews use the existing protected content JSON and publishing permissions. No new database tables, credentials, authentication policies or public submission endpoint are needed. Publication changes appear on the next public page load.
+
+## Other code-managed features
 
 Page layout, new page creation, navigation destinations, forms, checkout, the logo and calibrated hero product frames are protected. Product-label wording inside photos is part of the photo, not editable website text. If Supabase cannot be reached promptly, the storefront falls back to the original bundled content.
