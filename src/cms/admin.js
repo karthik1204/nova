@@ -302,20 +302,22 @@ async function save() {
 }
 $('login-form').onsubmit = (event) => {
   event.preventDefault();
+  if (!$('email').reportValidity()) return;
   run(async () => {
     unwrap(
       await db.auth.signInWithOtp({
         email: $('email').value.trim(),
-        options: { emailRedirectTo: new URL('./', location.href).href }
+        options: { shouldCreateUser: false, emailRedirectTo: new URL('./', location.href).href }
       })
     );
     notice(
-      'Sign-in email requested. Check your inbox. If Supabase reports an unauthorized address, email delivery must be configured first.'
+      'Check your inbox and spam folder. Use the newest email: enter its number code here, or open its sign-in link. Wait at least a minute before requesting another email.'
     );
   });
 };
 $('code-form').onsubmit = (event) => {
   event.preventDefault();
+  if (!$('email').reportValidity() || !$('code').reportValidity()) return;
   run(async () => {
     unwrap(
       await db.auth.verifyOtp({
@@ -324,6 +326,7 @@ $('code-form').onsubmit = (event) => {
         type: 'email'
       })
     );
+    $('code').value = '';
     await load();
   });
 };

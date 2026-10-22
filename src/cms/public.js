@@ -4,6 +4,10 @@ import { colorsCSS, textScope } from './settings.js';
 
 const base = structuredClone(window.NOVA_DATA.assets);
 const rootURL = new URL('../', document.currentScript.src);
+// Resolve once, not once per asset per image on every content mutation.
+const originalImageKeys = new Map(
+  Object.entries(base).reverse().map(([key, url]) => [new URL(url, rootURL).href, key])
+);
 const isPreview =
   new URLSearchParams(location.search).has('cms-preview') && window.parent !== window;
 let edits,
@@ -115,7 +119,7 @@ function sendCatalog() {
 }
 function applyHiddenImages() {
   for (const img of document.images) {
-    const key = Object.keys(base).find((id) => new URL(base[id], rootURL).href === img.src);
+    const key = originalImageKeys.get(img.src);
     if (key && edits.images[key] === null) {
       img.hidden = true;
       hiddenImages.add(img);

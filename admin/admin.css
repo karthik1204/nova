@@ -9,6 +9,15 @@
   padding-top: 16px;
   margin-top: 20px;
 }
+.email-code-panel {
+  border-top: 1px solid #dce1d7;
+  margin-top: 24px;
+  padding-top: 20px;
+}
+#code {
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+}
 .review-editor-row {
   min-width: 0;
   border: 1px solid #dce1d7;

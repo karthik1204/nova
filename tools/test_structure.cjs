@@ -15,7 +15,7 @@ const { root, read, js, css, html, data, content, hash, semanticHash, manifest }
   const canonicalCss = await prettier.format(css.replace(read('src/styles/reviews.css'), '').replace(/\/\*[\s\S]*?\*\//g, ''), { parser: 'css' });
   assert.equal(hash(canonicalCss.replace(/\n\s*\n/g, '\n')), baseline.css, 'CSS rules, values and cascade order are unchanged');
   assert.equal(read('assets/site.css'), css, 'Stylesheet is rebuilt from source');
-  const canonicalMarkup = await prettier.format(read('src/index.html').replace(/\s*<!-- reviews:start -->[\s\S]*?<!-- reviews:end -->/, '').replace('assets/cms-public.js', 'assets/app.js'), { parser: 'html', htmlWhitespaceSensitivity: 'strict' });
+  const canonicalMarkup = await prettier.format(read('src/index.html').replace(/\s*<!-- reviews:start -->[\s\S]*?<!-- reviews:end -->/, '').replace(/\s*<!-- performance:start -->[\s\S]*?<!-- performance:end -->/, '').replace('assets/cms-public.js', 'assets/app.js'), { parser: 'html', htmlWhitespaceSensitivity: 'strict' });
   assert.equal(hash(canonicalMarkup), baseline.markup, 'Page markup is unchanged apart from formatting');
   assert.equal(html, read('src/index.html'), 'HTML build is current');
   const { assets, ...text } = data;

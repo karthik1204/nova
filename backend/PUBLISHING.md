@@ -42,6 +42,12 @@ References: [GitHub Pages limits](https://docs.github.com/en/pages/getting-start
 
 ## Customer reviews
 
+### October 22 refinements
+
+The reviews section uses tighter section/card spacing and responsive type without truncating customer messages. The storefront preloads its application script while published content is fetched, and image visibility checks use an indexed lookup. Published content is still fetched fresh on each load; there is no stale content cache.
+
+Admin sign-in now exposes the email-code form directly, validates both email and code, and disables automatic account creation. The existing approved admin already has a verified account. Code verification is implemented, but **code email delivery is not enabled yet**: this project's default Supabase Free sender sends only a magic link. A custom SMTP sender and an email template containing `{{ .Token }}` are required. Do not mark OTP delivery complete until an actual email arrives and the owner verifies it on another device. Never put SMTP credentials in source control or browser code.
+
 After deploying the reviews feature, open **Customer reviews — all three products** in the admin editor. Add a genuine customer's display name, rating and exact message; select Digestive Tonic, Immunity Tonic or Immunity Broth Kit. Enable **Show this review after publishing**, then Save draft or Publish changes. Reviews can be reordered, hidden or removed from the draft. The existing publishing history also restores reviews.
 
 The homepage section appears below the product cards only when there are visible published reviews. With no reviews, the private editor shows clearly marked sample cards; these samples are never saved or published. For a local design preview, run `npm run build` and `npm run preview`, then open `http://127.0.0.1:4173/?reviews-demo=1`. The demo query is ignored on public hosts. The section inherits the current website palette; automatic scrolling pauses on hover, keyboard focus and touch, with a separate pause control and reduced-motion support.

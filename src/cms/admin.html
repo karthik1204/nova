@@ -15,30 +15,32 @@
     <main>
       <section id="login" class="login panel">
         <span class="eyebrow">YOUR WEBSITE, IN YOUR HANDS</span><h1>A little more control.</h1>
-        <p>Sign in with your approved admin email to manage website words and pictures.</p>
+        <p>Use your approved admin email on any phone, tablet or computer.</p>
         <form id="login-form"
           ><label
-            >Email address<input id="email" type="email" autocomplete="email" required /></label
-          ><button class="primary">Send sign-in link</button></form
+            >1. Email address<input id="email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required /></label
+          ><button id="send-email" class="primary">Send sign-in email</button></form
         >
         <p class="muted"
           >No shared password. Your email must be verified, and server-side admin permission is
           required.</p
         >
-        <details
-          ><summary>Using an email verification code instead?</summary
+        <div class="email-code-panel"
           ><form id="code-form"
             ><label
-              >Email code<input
+              >2. Enter email code<input
                 id="code"
                 autocomplete="one-time-code"
                 inputmode="numeric"
                 pattern="[0-9]{6,10}"
+                maxlength="10"
+                aria-describedby="code-help"
                 required /></label
-            ><button>Verify code</button></form
-          ><p class="muted"
-            >Available when the project's email template is configured to include a code.</p
-          ></details
+            ><button>Verify code &amp; sign in</button></form
+          ><p class="muted" id="code-help"
+            >If your email includes a number code, enter it here on the device you want to use.
+            Currently receiving only a link? Open that link to sign in; code delivery needs the email sender setup.</p
+          ></div
         >
       </section>
       <p id="status" role="status" aria-live="polite">Checking your sign-in…</p>
